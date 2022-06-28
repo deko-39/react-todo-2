@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { Edit } from "./Edit";
+
 export const Task = (props) => {
+  const [visible, setVisible] = useState(false);
+  const [editElement, setEditElement] = useState({});
+
   function handleClick(event, id) {
     event.preventDefault();
     props.handleDelete(id);
   }
 
-  function handleEdit(event, id) {
+  function handleEdit(event, el) {
     event.preventDefault();
-    props.handleEdit(id);
+    setVisible(true);
+    setEditElement(el);
+    console.log("AAA");
+  }
+
+  function handleUpdate(data) {
+    props.handleEdit(data);
   }
 
   return (
@@ -32,7 +43,7 @@ export const Task = (props) => {
                 <td>
                   <button
                     type="button"
-                    onClick={(event) => handleEdit(event, el.id)}
+                    onClick={(event) => handleEdit(event, el)}
                   >
                     Edit
                   </button>
@@ -50,6 +61,11 @@ export const Task = (props) => {
           })}
         </tbody>
       </table>
+      <Edit
+        visible={visible}
+        editElement={editElement}
+        handleUpdate={handleUpdate}
+      />
     </>
   );
 };

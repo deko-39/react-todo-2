@@ -2,21 +2,15 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "./components/Form";
 import { Task } from "./components/Task";
-import { Edit } from "./components/Edit";
 
 export const App = () => {
   const [task, setTask] = useState([
-    { id: 1, name: "1", des: "A", date: "12/02/2022" },
-    { id: 2, name: "2", des: "B", date: "12/03/2022" },
-    { id: 3, name: "2", des: "B", date: "12/03/2022" },
-    { id: 4, name: "2", des: "B", date: "12/03/2022" },
-    { id: 5, name: "2", des: "B", date: "12/03/2022" },
+    { id: 1, name: "1", des: "A", date: "2022-02-14" },
+    { id: 2, name: "2", des: "B", date: "2022-02-14" },
+    { id: 3, name: "2", des: "C", date: "2022-02-14" },
+    { id: 4, name: "2", des: "D", date: "2022-02-14" },
+    { id: 5, name: "2", des: "E", date: "2022-02-14" },
   ]);
-
-  const [visible, setVisible] = useState(false);
-  const [editElement, setEditElement] = useState({});
-
-  // newTask = {taskName: "", description: "", date: "" }
 
   function handleSubmit(newTask) {
     const taskLength = task.length;
@@ -30,21 +24,15 @@ export const App = () => {
     setTask([...task.filter((el) => el.id !== id)]);
   }
 
-  function handleEdit(id) {
-    setVisible(true);
-    const element = task.find((el) => el.id === id);
-    setEditElement(element);
-  }
-
-  function setVisi() {
-    setVisible(false);
+  function handleEdit(data) {
+    const element = task.find((el) => el.id === data.id);
+    /// TO-do: update the new data
   }
 
   return (
     <>
       <Form handleSubmit={handleSubmit} />
       <Task task={task} handleDelete={handleDelete} handleEdit={handleEdit} />
-      <Edit visible={visible} setVisi={setVisi} editElement={editElement} />
     </>
   );
 };
